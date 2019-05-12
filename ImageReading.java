@@ -27,7 +27,7 @@ public class ImageReading {
             this.imageHeight = this.image.getHeight();
         }
     }
-    int[][][] getImageColor(){
+    int[][] getImageBrightness(){
         //Extract a Colors class from each pixel of the picture
         Color[][] colors = new Color[this.imageWidth][this.imageHeight];
 
@@ -37,11 +37,11 @@ public class ImageReading {
             }
         }
         //Turn the Color array to 3d array of rgb values
-        return colorToRGB(colors);
+        return RGBToBrightness(colorToRGB(colors));
     }
     private int[][][] colorToRGB(Color[][] colors){
         //Go through the whole Color array, read the R, G, B values and put them inside the 3d array
-        int rgb[][][] = new int[this.imageWidth][this.imageHeight][3];
+        int[][][] rgb = new int[this.imageWidth][this.imageHeight][3];
 
         for (var i = 0; i < this.imageWidth; i++) {
             for (var j = 0; j < this.imageHeight; j++) {
@@ -51,6 +51,20 @@ public class ImageReading {
             }
         }
         return rgb;
+    }
+    private int[][] RGBToBrightness(int[][][] rgb){
+        int[][] brightness = new int[this.imageWidth][this.imageHeight];
+
+        for (var i = 0; i < this.imageWidth; i++) {
+            for (var j = 0; j < this.imageHeight; j++) {
+                brightness[i][j] = getAverage(rgb[i][j][0], rgb[i][j][1], rgb[i][j][2]);
+            }
+        }
+        return brightness;
+    }
+    private int getAverage(int r, int g, int b){
+        //This can be changed later to other methods for defining the brightness of a pixel
+        return (r + g + b) / 3;
     }
     int getImageWidth(){
         return this.imageWidth;
