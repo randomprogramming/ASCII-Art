@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class ImageReading {
+class ImageReading {
     private BufferedImage image;
     
     private int imageWidth;
@@ -20,7 +20,7 @@ public class ImageReading {
             this.isImageRead = true;
         }
         catch (Exception e){
-            System.out.println("File not found!");
+            System.out.println("Image not found!");
         }
         if(this.isImageRead) {
             this.imageWidth = this.image.getWidth();
